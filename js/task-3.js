@@ -1,30 +1,35 @@
 'use strict' ;
 
-const profile = {
-  username: "Jacob",
-  playTime: 300,
+class StringBuilder {
+    #value;
 
-changeUsername(newName) {
-    
-    this.username = newName;   
-},
+    constructor(initialValue) {
+        this.#value = initialValue;
+    }
 
-updatePlayTime(hours) {
-   
-    this.playTime += hours;
-},
+    getValue() {
+    return this.#value;
+    }
 
-getInfo() {
+    padEnd(str) {
+        this.#value += str;
+    }
 
-    return `${this.username} has ${this.playTime} active hours!`;
-},
-};
+    padStart(str) {
+        this.#value = str + this.#value;
+    }
 
+    padBoth(str) {
+      this.padStart(str);
+      this.padEnd(str);
+    }
+}
 
-console.log(profile.getInfo()); // "Jacob has 300 active hours!"
-
-profile.changeUsername("Marco");
-console.log(profile.getInfo()); // "Marco has 300 active hours!"
-
-profile.updatePlayTime(20);
-console.log(profile.getInfo()); // "Marco has 320 active hours!"
+const builder = new StringBuilder(".");
+console.log(builder.getValue()); // "."
+builder.padStart("^");
+console.log(builder.getValue()); // "^."
+builder.padEnd("^");
+console.log(builder.getValue()); // "^.^"
+builder.padBoth("=");
+console.log(builder.getValue()); // "=^.^="
